@@ -20,7 +20,7 @@ for line in raw_lines:
     if(last_address == 0 and current_address == 0):
         # raw file starts at 0x0000, process normal
         last_address = current_address
-    elif(current_address > last_address+4):
+    elif(current_address > last_address+6):
         # jump occurred in address space, fill with 0s
         for i in range(current_address-last_address):
             parse_file.write(bytes.fromhex("00"))
