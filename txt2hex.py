@@ -1,12 +1,9 @@
 raw_file = open('data/neworleans.txt', "r")
-parse_file = open('data/neworleans.bin-blah', "wb")
+parse_file = open('data/neworleans.bin', "wb")
 TOTAL_MEMORY_SIZE = 0xFFFF
 last_address = 0x0000
 
 raw_lines = raw_file.readlines()
-
-#for i in range(0x4400):
-    #parse_file.write(bytes.fromhex("00"))
 
 for line in raw_lines:
     # get rid of extra new lines
@@ -28,17 +25,18 @@ for line in raw_lines:
     elif(current_address >= last_address+2):
         # normal processing of contiguous memory, instructions can be 2 or 4 bytes
         last_address = current_address
-    else:
-        print("ERROR: current_address ["+hex(current_address)+"] < last_address+2 ["+hex(last_address)+2+"]")
+
     # handle program strings
     if('"' in line[:20]):
-        parse_file.write(bytes(line[6:].replace('"','').replace("\n","\0"), 'utf-8'))
+        string_bytes = bytes(line[6:].replace('"','').replace("\n","\0"), 'utf-8')
+        parse_file.write(string_bytes)
+        # jump last_address to account for string length being written
+        last_address = current_address + len(string_bytes)
         continue
     # extract only the bytes
     hex_strings = line[7:21].split()
     for hex_string in hex_strings:
         hex_bytes = bytes.fromhex(hex_string)
-        #print(hex_string+"\t"+hex_bytes.hex())
         parse_file.write(hex_bytes)
 
 raw_file.close()
