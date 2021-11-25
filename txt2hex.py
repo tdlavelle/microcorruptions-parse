@@ -1,5 +1,7 @@
 raw_file = open('data/neworleans.txt', "r")
 parse_file = open('data/neworleans.bin', "wb")
+labels_file = open('data/neworleans.labels', "w")
+
 TOTAL_MEMORY_SIZE = 0xFFFF
 last_address = 0x0000
 
@@ -11,6 +13,7 @@ for line in raw_lines:
         continue
     # get rid of labels
     if(":" not in line[4]):
+        labels_file.write(line);
         continue
     # check for continuous address space, add 0s if not
     current_address = int(line[:4], base=16)
