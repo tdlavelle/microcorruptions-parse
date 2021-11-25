@@ -1,5 +1,8 @@
 
 
+0010 <__trap_interrupt>
+
+0010:  3041           ret
 
 4400 <__init_stack>
 
@@ -296,5 +299,4 @@
 45c0 <_unexpected_>
 
 45c0:  0013           reti	pc
-
 
