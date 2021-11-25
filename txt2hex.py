@@ -31,5 +31,14 @@ for line in raw_lines:
         hex_bytes = bytes.fromhex(hex_string)
         parse_file.write(hex_bytes)
 
+size = parse_file.tell()-1
+#print("size = "+hex(size)+" total = "+hex(TOTAL_MEMORY_SIZE))
+# check if padding needed at end
+if(size < TOTAL_MEMORY_SIZE):
+    for i in range(TOTAL_MEMORY_SIZE-size):
+        parse_file.write(bytes.fromhex("00"))
+
+#print("end addr = "+hex(parse_file.tell()))
+
 raw_file.close()
 parse_file.close()

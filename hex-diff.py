@@ -1,5 +1,5 @@
 file1 = open('data/neworleans.bin', "rb")
-file2 = open('data/neworleans.bin-blah', "rb")
+file2 = open('data/neworleans.bin2', "rb")
 
 while (byte1 := file1.read(1)):
     if (byte2 := file2.read(1)):
