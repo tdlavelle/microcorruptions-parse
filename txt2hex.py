@@ -3,7 +3,6 @@ parse_file = open('data/neworleans.bin', "wb")
 labels_file = open('data/neworleans.labels', "w")
 
 TOTAL_MEMORY_SIZE = 0xFFFF
-last_address = 0x0000
 
 raw_lines = raw_file.readlines()
 
@@ -43,5 +42,6 @@ if(size < TOTAL_MEMORY_SIZE):
 
 #print("end addr = "+hex(parse_file.tell()))
 
+labels_file.close()
 raw_file.close()
 parse_file.close()
